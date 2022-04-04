@@ -6,13 +6,15 @@
         owner: "nginx"
         group: "nginx"
         mode: '0755'
-
+# add tar and unzip
     - name: Download and unpack latest WordPress
       unarchive:
         src: https://wordpress.org/latest.tar.gz
         dest: "/var/www/{{ http_host }}"
         remote_src: yes
         creates: "/var/www/{{ http_host }}/wordpress"
+        extra_opts:
+          - '-z'
  
     - name: Set ownership
       file:

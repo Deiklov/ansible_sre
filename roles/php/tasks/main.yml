@@ -1,0 +1,52 @@
+---
+- name: Installing Remi Repository
+  dnf:
+    name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+    state: present
+    disable_gpg_check: yes
+- name: Installing php
+  dnf:
+    enablerepo: "remi,remi-php74" # If you intent to install a different version of PHP, you can change the repo according. Eg : "remi,remi-php74"
+    name:
+    - php
+    - php-common
+    - php-cli
+    - php-gd
+    - php-curl #You can add or remove PHP extensions according to your choice
+    - php-mysqlnd
+    - php-fpm
+    - php-mysqli
+    state: latest
+
+- name: Update php-fpm config file
+  replace:
+    path: "/etc/php-fpm.d/www.conf"
+    regexp: 'apache'
+    replace: "nginx"
+  notify: restart php
+
+- name: Ansible multiple replace example
+  replace:
+    path: "{{ item.path }}"
+    regexp: "{{ item.regexp1 }}"
+    replace: "{{ item.replace }}"
+  with_items:
+    - { path: '/etc/php-fpm.d/www.conf', regexp1: ';listen.owner = nobody', replace: 'listen.owner = nginx'}
+    - { path: '/etc/php-fpm.d/www.conf', regexp1: ';listen.group = nobody', replace: 'listen.group = nginx'}
+    - { path: '/etc/php-fpm.d/www.conf', regexp1: ';listen.mode = 0660', replace: 'listen.mode = 0660'}
+    # very bad
+    - { path: '/etc/php-fpm.d/www.conf', regexp1: 'listen.acl_users = nginx', replace: ';listen.acl_users = nginx'}
+  notify: restart php
+
+- name: Update php-fpm config file
+  replace:
+    path: "/etc/php-fpm.d/www.conf"
+    regexp: '127.0.0.1:9000'
+    replace: "/run/php-fpm/www.sock"
+  notify: restart php
+
+- name: Enable PHP-FPM from starting on boot
+  service:
+   name: php-fpm
+   state: started
+   enabled: yes

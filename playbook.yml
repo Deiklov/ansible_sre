@@ -1,12 +1,13 @@
 ---
-- hosts: target1
+- hosts: wp_centos
   gather_facts: False
   become: true
   vars_files:
     - vars/default.yml
   roles:
-    - nginx
-    - php-fpm
-    - mysql
+    # - common
+    # - nginx
+    # - php
+    # - mysql
     - wordpress
     - firewall
