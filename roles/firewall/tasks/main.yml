@@ -1,18 +1,23 @@
+---
 # Firewall Configuration
-    - name: Disable SELinux
-      selinux:
-        state: disabled
+- name: Disable SELinux
+  selinux:
+    state: disabled
  
     # - name: Disable SELinux Without Reboot
     #   command: /sbin/setenforce 0
-    - name: Stop and disable firewalld.
-      service:
-        name: firewalld
-        state: stopped
-        enabled: False
+
+    # - name: Stop and disable firewalld.
+    #   service:
+    #     name: firewalld
+    #     state: stopped
+    #     enabled: False
  
-    # - name: Configure Firewall
-    #   firewalld: zone=public service=http permanent=yes state=enabled
+- name: Configure Firewall http
+  firewalld: zone=public service=http permanent=yes state=enabled
+
+- name: Configure Firewall zabbix-agent
+  firewalld: zone=public service=zabbix-agent permanent=yes state=enabled
  
-    # - name: Reload Firewall
-    #   systemd: name=firewalld state=reloaded
+- name: Reload Firewall
+  systemd: name=firewalld state=reloaded

@@ -21,11 +21,9 @@
     host: "localhost"
     password: "{{ mysql_root_password }}"
     priv: "*.*:ALL,GRANT"
+    check_implicit_admin: true
   with_items:
-    # - "194.67.205.77"
-    - 127.0.0.1
-    # - ::1
-    - localhost
+    - '127.0.0.1'
 
 - name: Copy .my.cnf file with root password credentials
   become: true
@@ -61,7 +59,4 @@
   become: true
   mysql_user: name=root host=localhost password={{ mysql_root_password }} priv=*.*:ALL,GRANT
   with_items:
-    # - "194.67.205.77"
-    - 127.0.0.1
-    # - ::1
-    - localhost
+    - '127.0.0.1'
