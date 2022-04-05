@@ -1,5 +1,5 @@
 ---
-- hosts: wp_centos_sre_vm3
+- hosts: wp_centos_vds
   gather_facts: False
   become: true
   vars_files:
@@ -10,7 +10,9 @@
     - php
     - mysql
     - wordpress
+    - zabbix_agent
     - firewall
-  environment:
-    http_proxy: http://10.115.62.1:8080
-    https_proxy: http://10.115.62.1:8080
+
+  # environment:
+  #   http_proxy: http://10.115.62.1:8080
+  #   https_proxy: http://10.115.62.1:8080

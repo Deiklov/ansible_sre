@@ -10,6 +10,7 @@ http_conf: "wp.example.com.conf"
 http_port: "80"
 zabbix_server_ip: "10.115.62.101"
 zabbix_agent_port: "10050"
+zabbix_node_name: "node3.alma.103"
 
 ## -- PHP configuration -- ##
 php_fpm:
