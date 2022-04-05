@@ -8,9 +8,9 @@
     - common
     - nginx
     - php
-    - mysql
+    # - mysql
     - wordpress
     - firewall
-  environment:
-    http_proxy: http://10.115.62.1:8080
-    https_proxy: http://10.115.62.1:8080
+  # environment:
+  #   http_proxy: http://10.115.62.1:8080
+  #   https_proxy: http://10.115.62.1:8080

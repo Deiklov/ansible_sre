@@ -10,12 +10,14 @@
     name:
     - php
     - php-common
-    - php-cli
+    - php-json
     - php-gd
     - php-curl #You can add or remove PHP extensions according to your choice
     - php-mysqlnd
     - php-fpm
-    - php-mysqli
+    - php-intl
+    - php-opcache
+    - php-mbstring
     state: latest
 
 - name: Copy php-fpm configuration

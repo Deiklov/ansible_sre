@@ -1,17 +1,16 @@
 ---
-- name: Install MariaDB Package
-  yum: name={{ item }} state=present
-  with_items:
-   - mariadb-server
-   - mariadb
-   - php-mysqlnd
-   - python3-PyMySQL
+# - name: "Installing Repo"
+#   shell: sudo rpm -Uvh http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
+#   ignore_errors: true
 
-- name: start mariadb
-  service:
-    name: mariadb
-    enabled: true
-    state: started
+# - name: "Installing MySQL 5.7"
+#   package: name=mysql-community-server state=present
+# - name: Start the MySQL service
+#   become: true
+#   service: 
+#     name: mysqld
+#     state: started
+#     enabled: true
 
 - name: Set MySQL root Password
   mysql_user:
