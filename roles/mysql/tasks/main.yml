@@ -1,5 +1,5 @@
 ---
-- name: install mariadb
+- name: Install mariadb
   dnf:
     name:
       - mariadb
@@ -7,7 +7,7 @@
       - python3-PyMySQL
     state: latest
 
-- name: start mariadb
+- name: Start mariadb
   service:
     name: mariadb
     enabled: true

@@ -5,25 +5,18 @@
     state: present
     disable_gpg_check: true
 
-- name: Install zaabix
+- name: Install zabbix
   dnf:
     name: zabbix-agent
     state: present
 
-# - name: Change zabbix server IP
-#   lineinfile:
-#     path: /etc/zabbix/zabbix_agentd.conf
-#     regexp: '^Server=127.0.0.1$'
-#     line: Server={{ zabbix_server_ip }}
-- name: Change zabbix server IP
-  lineinfile:
-      dest: /etc/zabbix/zabbix_agentd.conf
-      regexp: "{{ item.regexp }}"
-      line: "{{ item.line }}"
-      loop:
-        - { regexp: '^Server=127.0.0.1', line: 'Server={{ zabbix_server_ip }}' }
-        - { regexp: '^Hostname=Zabbix server', line: 'Hostname={{ zabbix_node_name }}' }
-        - { regexp: '^ServerActive=127.0.0.1', line: 'ServerActive={{ zabbix_server_ip }}' }
+- name: Zabbix-agent configs
+  template:
+    src: zabbix_agentd.conf.j2
+    dest: /etc/zabbix/zabbix_agentd.conf
+    owner: root
+    group: root
+    mode: '0644'
 
 - name: Insert firewalld rule for zabbix-agent
   firewalld: port={{ zabbix_agent_port }}/tcp permanent=true state=enabled immediate=yes
