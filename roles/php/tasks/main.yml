@@ -18,32 +18,10 @@
     - php-mysqli
     state: latest
 
-- name: Update php-fpm config file
-  replace:
-    path: "/etc/php-fpm.d/www.conf"
-    regexp: 'apache'
-    replace: "nginx"
+- name: Copy php-fpm configuration
+  template: src=www.conf dest=/etc/php-fpm.d/
   notify: restart php
 
-- name: Ansible multiple replace example
-  replace:
-    path: "{{ item.path }}"
-    regexp: "{{ item.regexp1 }}"
-    replace: "{{ item.replace }}"
-  with_items:
-    - { path: '/etc/php-fpm.d/www.conf', regexp1: ';listen.owner = nobody', replace: 'listen.owner = nginx'}
-    - { path: '/etc/php-fpm.d/www.conf', regexp1: ';listen.group = nobody', replace: 'listen.group = nginx'}
-    - { path: '/etc/php-fpm.d/www.conf', regexp1: ';listen.mode = 0660', replace: 'listen.mode = 0660'}
-    # very bad
-    - { path: '/etc/php-fpm.d/www.conf', regexp1: 'listen.acl_users = nginx', replace: ';listen.acl_users = nginx'}
-  notify: restart php
-
-- name: Update php-fpm config file
-  replace:
-    path: "/etc/php-fpm.d/www.conf"
-    regexp: '127.0.0.1:9000'
-    replace: "/run/php-fpm/www.sock"
-  notify: restart php
 
 - name: Enable PHP-FPM from starting on boot
   service:

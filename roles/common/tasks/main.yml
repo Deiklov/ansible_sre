@@ -2,3 +2,10 @@
 - name: Update cache dnf
   dnf:
     update_cache: yes
+
+- name: Install the tar and unzip
+  dnf:
+    name:
+      - tar
+      - unzip
+    state: latest

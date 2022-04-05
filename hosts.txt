@@ -1,2 +1,2 @@
 [wp_centos]
-target1 ansible_host=194.67.205.77
+target1 ansible_host=10.115.62.103

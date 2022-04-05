@@ -5,9 +5,12 @@
   vars_files:
     - vars/default.yml
   roles:
-    # - common
-    # - nginx
-    # - php
-    # - mysql
+    - common
+    - nginx
+    - php
+    - mysql
     - wordpress
     - firewall
+  environment:
+    http_proxy: http://10.115.62.1:8080
+    https_proxy: http://10.115.62.1:8080

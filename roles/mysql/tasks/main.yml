@@ -4,6 +4,7 @@
   with_items:
    - mariadb-server
    - mariadb
+   - php-mysqlnd
    - python3-PyMySQL
 
 - name: start mariadb
