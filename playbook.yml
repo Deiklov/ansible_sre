@@ -8,7 +8,7 @@
     - common
     - nginx
     - php
-    # - mysql
+    - mysql
     - wordpress
     - firewall
   # environment:
